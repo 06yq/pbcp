@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>配邦产品净值表</title>
+     <link rel="stylesheet" href="../../static/js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="../../static/js/jquery-3.4.0.min.js"></script>
+    <script src="../../static/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="../../static/js/getParam.js"></script>
+    <script src="../../static/js/tableExport.js"></script>
+    <script src="../../static/js/bootstrap-table.min.js"></script>
+    <script src="../../static/js/bootstrap-table-zh-CN.min.js"></script>
+    <style>
+         .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
+                background-color: #9d4551 !important;
+                border-color: white !important;
+           }
+            .pagination>li>a, .pagination>li>span {
+                color: #9d4551;
+            }
+          .btn-delete{
+            background: -moz-linear-gradient(top,  #a04a4d 0%,#c0555b 50%, #9d4551 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a04a4d), color-stop(50%,#c0555b), color-stop(100%,#9d4551)); /   *   Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top,  #a04a4d 0%,#c0555b 50%, #9d4551 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top,  #a04a4d 0%,#c0555b 50%, #9d4551 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top,  #a04a4d 0%,#c0555b 50%, #9d4551 100%); /* IE10+ */
+            background: linear-gradient(to bottom,  #a04a4d 0%,#c0555b 50%,#9d4551 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a04a4d', endColorstr='#c0555b',GradientType=0 ); /* IE6-9 */
+            border:1px solid white;
+            color:white;
+            outline: none;
+          }
+          .btn-delete:hover{
+            color:white;
+          }
+          .modal-backdrop{
+            display:none
+          }
+          .table-bordered>tbody>tr>td{
+            font-size:12px;
+            padding: 3px;
+            line-height:30px;
+            text-align:center
+          }
+          .pagination{
+            margin:0 !important;
+          }
+          .fixed-table-container{
+            height:680px;
+            overflow-y:scroll !important;
+          }
+          .fixed-table-container::-webkit-scrollbar { width:3px; height:2px; background:#ccc; border-radius:10px;/*外层轨道*/}
+          .fixed-table-container:-webkit-scrollbar-thumb{ display:block; width:2px; margin:0 auto; border-radius: 10px; background:#9d4551;/*内层轨道*/}
+    </style>
+</head>
+<body>
+
+    <div class="rightTable" >
+        <table class="table table-striped" id="table"></table>
+    </div>
+    <!-- 信息删除确认 -->
+    <div class="modal fade" id="delModel" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog">
+        <div class="modal-content message_align">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">提示信息</h4>
+          </div>
+          <div class="modal-body">
+            <p>您确认要删除吗？</p>
+          </div>
+          <div class="modal-footer">
+             <input type="hidden" id="url"/>
+             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+             <a onclick="delData(data)" class="btn btn-delete" data-dismiss="modal">确定</a>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+<script>
+    var nameParams=getParameter('name',location.href);
+    var url ='/polls/getData/?'+nameParams
+    var data;
+    var flag=false;
+    function addFunctionAlty(value, row, index) {
+       if(index==0){
+         return [
+            '<button id="delete" type="button" class="btn btn-delete delete">删除</button>',
+            ].join('');
+       }
+      }
+    window.operateEvents = {
+         'click #delete': function (e, value, row, index) {
+             $("#delModel").modal('show');
+             var id = row.id
+             row.id = id.replace(/\"/g,"");
+             data={'id':row.id}
+         }
+     };
+
+     function delData(data){
+          $.ajax({
+                url:'/polls/deleteEqu/',
+                dataType:'json',
+                type:'POST',
+                data:data,
+                success:function(data){
+                    console.log(data)
+                    if(data.type){
+                        window.parent.alertSuccess(data.message);//获取父级函数
+                    }else{
+                        window.parent.alertError(data.message);
+                    }
+
+                 },
+                 error:function(e){
+                    console.log(e)
+                    window.parent.alertError(e.error);
+                 }
+             })
+     }
+     $(function(){
+         tableData();
+         function tableData(){
+             $.ajax({
+             url:url,
+             contentType: "application/json;charset=utf-8",
+             type:'GET',
+             json: 'callback',
+             async:false,
+             success:function(json){
+               var columnsArray = [];
+                    for(var i = 0; i < json.length; i++){
+                       json[i]['回撤'] =  json[i]['回撤']+'%';
+                       json[i]['最大回撤'] =  json[i]['最大回撤']+'%';
+                    }
+                    for (var i = 0; i < (Object.keys(json[0])).length; i++) {//Object.keys(obj) 获取key名称
+                        var property = (Object.keys(json[0]))[i];//id   username
+                        columnsArray.push({
+                            "title": property,
+                            "field": property,
+                            switchable: true,
+                            sortable: true
+                        });
+                    }
+
+                    columnsArray.push({
+                         field: 'operate',
+                         title: '操作',
+                         events: operateEvents,//给按钮注册事件
+                         formatter: addFunctionAlty//表格中增加按钮
+                    })
+<!--                    $('#table').bootstrapTable('hideColumn','id');              -->
+                    for(var i=0;i<json.length;i++){
+                        if (json[i]['类型'] == 0){
+                            json[i]['类型'] = '配邦产品'
+                        }
+                         if (json[i]['类型'] == 1){
+                            json[i]['类型'] = '配邦一号'
+                        }
+                         if (json[i]['类型'] == 2){
+                            json[i]['类型'] = '配邦二号'
+                        }
+                        if (json[i]['类型'] == 3){
+                            json[i]['类型'] = '配邦三号'
+                        }
+                        if (json[i]['类型'] == 5){
+                            json[i]['类型'] = '配邦五号'
+                        }
+                        if (json[i]['类型'] == 4){
+                            json[i]['类型'] = '配邦私人'
+                        }
+                    }
+                    $('#table').bootstrapTable('destroy').bootstrapTable({
+                        data: json,
+                        toolbar: '#toolbar',
+                        singleSelect: true,
+                        clickToSelect: true,
+                        sortName: "日期",
+                        sortOrder: "desc",
+                        sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                        pageSize: 15,
+                        pageNumber: 1,
+                        pageList: "[10, 25, 50, 100, All]",
+                        pagination: true, //是否分页
+                        columns: columnsArray,
+                    });
+                    $('.fixed-table-loading').hide();
+                    $('#table').bootstrapTable('hideColumn', 'id'); //隐藏字段
+                    //flag = true;
+
+             },
+             error:function(){
+                console.log('error')
+                 $('.fixed-table-loading').show()
+             }
+         })
+         }
+     })
+
+     $(document).ready(function($){
+      setTimeout(test(),1000);
+        function test(){
+            if(flag){
+               $('.delete:not(:first)').remove()
+            }
+        }
+
+     })
+
+</script>
+</html>

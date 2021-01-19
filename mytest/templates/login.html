@@ -1,0 +1,355 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>配邦用户登陆</title>
+    <link rel="stylesheet" href="../../static/js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="../../static/js/jquery-3.4.0.min.js"></script>
+    <script src="../../static/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <style>
+        *{
+            margin:0;
+            padding:0
+        }
+        body{
+            width:100%;
+            height:1211px;
+        }
+        .container{
+            width:100%;
+            height:100%;
+            background-image:linear-gradient(to bottom left,#a04a4d,#5c2b40,#3c1e3a);
+        }
+        .registerBox{
+            width:60%;
+            height:60%;
+            margin:200px auto;
+        }
+        .left{
+             height:100%;
+             //background-image:linear-gradient(to bottom left,#672f4a,#48213e,#241333);
+             background: url(../../static/image/pbBg.png) no-repeat ;
+             background-size: cover;
+             border-top-left-radius:10px;
+             border-bottom-left-radius:10px;
+
+        }
+        .right{
+            height:100%;
+            background-image:linear-gradient(to bottom left,#de6a6d,#c0555b,#9d4551);
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+        .rightContent{
+            width:70%;
+            height:70%;
+            margin:100px auto;
+            color:white;
+            font-family:"Times New Roman",Georgia,Serif;
+            position:relative
+        }
+        .registerC p{
+            font-size:35px;
+            text-align:center
+        }
+         .registerC input{
+            text-indent: 2em;
+            width:90%;
+            display:block;
+            padding:15px 0;
+            margin:20px;
+            background:transparent;
+            border:none;
+            border-bottom:1px solid white;
+            color:white !important;
+         }
+         .registerC input:focus{
+            outline:none
+         }
+         ::-webkit-input-placeholder { /* WebKit browsers */
+            color: white;
+            font-size:18px;
+        }
+        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color: white;
+            font-size:18px;
+        }
+        ::-moz-placeholder { /* Mozilla Firefox 19+ */
+           color: white;
+           font-size:18px;
+        }
+        :-ms-input-placeholder { /* Internet Explorer 10+ */
+            color: white;
+            font-size:18px;
+        }
+          .registerC .btn{
+            font-size:20px;
+            width:50%;
+            height:50px;
+            background:transparent;
+            border:1px solid white;
+            color:white;
+            outline: none;
+          }
+          .btn:hover{
+            color:white;
+          }
+          .btnActive{
+            background:white !important;
+            color:#dc5f63 !important;
+          }
+          .forgetPwd{
+            text-align:center;
+            font-size:25px
+          }
+           .forgetPwd a{
+            color:white;
+            letter-spacing:5px;
+           }
+            .forgetPwd a:hover{
+                text-decoration: none
+            }
+         .right .rightContent .alert{
+            width:100%;
+            position:absolute;
+            top:-70px;
+            text-align:center;
+            display:none;
+         }
+         .backLogin a,.backRegister a{
+            color:white;
+            font-size:20px;
+            text-decoration: none;
+            line-height:50px;
+            letter-spacing:8px;
+         }
+         #register,#forget{
+            display:none
+         }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="registerBox row">
+            <div class="col-md-6 left"></div>
+            <div class="col-md-6 right">
+                <div class="rightContent">
+                    <div class="alert alert-danger" role="alert"></div>
+                    <div class="registerC" id="register">
+    <!--                    <div class="alert alert-danger" role="alert"></div>-->
+                        <p>注册</p>
+                        <form>
+                            <input type="email" placeholder="请输入账号" id="user">
+                            <input type="password" autocomplete placeholder="请输入密码" id="pwd">
+                            <input type="password" autocomplete placeholder="请确认密码" id="rePwd">
+                            <div style="display:flex;justify-content:space-evenly;margin:80px 0 130px;">
+                                <button class="btn btnActive registerBtn">注册</button>
+                                <div class="backLogin"><a href="#">去登陆</a></div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="registerC" id="login">
+    <!--                    <div class="alert alert-danger" role="alert"></div>-->
+                        <p>登陆</p>
+                        <form>
+                            <input type="email" placeholder="请输入账号" id="loginUser">
+                            <input type="password" autocomplete placeholder="请输入密码" id="loginPwd">
+                            <div style="display:flex;justify-content:space-evenly;margin:80px 0 130px;">
+                                <button class="btn btnActive loginBtn">登陆</button>
+                                <div class="backRegister"><a href="#">去注册</a></div>
+                            </div>
+                        </form>
+                        <div class="forgetPwd"><a href="#">忘记密码</a></div>
+                    </div>
+                    <div class="registerC" id="forget">
+    <!--                    <div class="alert alert-danger" role="alert"></div>-->
+                        <p>修改密码</p>
+                        <form>
+                            <input type="email" placeholder="请输入账号" id="forgetUser">
+                            <input type="password" autocomplete placeholder="请输入密码" id="forgetPwd">
+                            <input type="password" autocomplete placeholder="请确认密码" id="forgetRePwd">
+                            <div style="display:flex;justify-content:space-evenly;margin:80px 0 130px;">
+                                <button class="btn btnActive forgetBtn">提交</button>
+                                <div class="backLogin"><a href="#">去登陆</a></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <script>
+        //字符串非空验证
+        function isEmpty(str) {
+            if(str == "" || str == null || str == undefined){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        function goLogin(){
+           $('#login').show();
+           $('#register').hide();
+           $('.rightContent .alert').hide();
+           $('#forget').hide();
+        }
+        function goRegister(){
+           $('#register').show();
+           $('#login').hide();
+           $('.rightContent .alert').hide();
+        }
+        function goForget(){
+          $('#forget').show();
+          $('#login').hide();
+          $('.rightContent .alert').hide();
+        }
+       function alertSuccess(msg){
+             $('.rightContent .alert').addClass("alert-success");
+             $('.rightContent .alert').removeClass("alert-danger");
+             $('.rightContent .alert').html(msg);
+        }
+         function alertError(msg){
+             console.log(msg);
+             $('.rightContent .alert').removeClass("alert-success");
+             $('.rightContent .alert').addClass("alert-danger");
+             $('.rightContent .alert').html(msg);
+        }
+        $('.loginBtn').click(function(e){
+            e.preventDefault();
+            var flag=true;
+             var msgError="";
+             var account = $("#loginUser").val();
+             var pwd = $("#loginPwd").val();
+             if(isEmpty(account) || isEmpty(pwd)){
+                 msgError = "用户名或者密码不能为空";
+                 flag=false;
+              }
+           var data={'account':account,'pwd':pwd}
+           if(flag){
+            $('.rightContent .alert').hide();
+                //上传数据到后台
+                 $.ajax({
+                     url:'/polls/login/',
+                     dataType:'json',
+                     type:'POST',
+                     data:data,
+                     success:function(data){
+                       $('.rightContent .alert').show();
+                       if(data.type){
+                        alertSuccess(data.message);
+                        window.location.href='/';
+                       }else{
+                            alertError(data.message);
+                       }
+                     },
+                     error:function(e){
+                        console.log(e)
+                     }
+                 })
+            }else{
+                $('.rightContent .alert').show();
+                alertError(msgError)
+            }
+           })
+        $('.registerBtn').click(function(e){
+           e.preventDefault();
+             var flag=true;
+             var msgError="";
+             var account = $("#user").val();
+             var pwd = $("#pwd").val();
+             var rePwd = $("#rePwd").val();
+             if(isEmpty(account) || isEmpty(pwd)){
+                 msgError = "用户名或者密码不能为空";
+                 flag=false;
+              }
+               if(pwd != rePwd){
+                  msgError = "两次密码不一致";
+                  flag=false;
+               }
+           var data={'account':account,'pwd':pwd}
+           if(flag){
+            $('.rightContent .alert').hide();
+                //上传数据到后台
+                 $.ajax({
+                     url:'/polls/register/',
+                     dataType:'json',
+                     type:'POST',
+                     data:data,
+                     success:function(data){
+                       $('.rightContent .alert').show();
+                       if(data.type){
+                            alertSuccess(data.message);
+                            $('#register').hide();
+                            $('#login').show();
+                       }else{
+                            alertError(data.message)
+                       }
+                     },
+                     error:function(e){
+                        console.log(e)
+                     }
+                 })
+            }else{
+                $('.rightContent .alert').show();
+                alertError(msgError)
+            }
+        })
+        $('.forgetBtn').click(function(e){
+           e.preventDefault();
+             var flag=true;
+             var msgError="";
+             var account = $("#forgetUser").val();
+             var pwd = $("#forgetPwd").val();
+             var rePwd = $("#forgetRePwd").val();
+             if(isEmpty(account) || isEmpty(pwd)){
+                 msgError = "用户名或者密码不能为空";
+                 flag=false;
+              }
+               if(pwd != rePwd){
+                  msgError = "两次密码不一致";
+                 flag=false;
+               }
+            var data={'account':account,'pwd':pwd}
+           if(flag){
+            $('.rightContent .alert').hide();
+                //上传数据到后台
+                 $.ajax({
+                     url:'/polls/forgetPwd/',
+                     dataType:'json',
+                     type:'POST',
+                     data:data,
+                     success:function(data){
+                       $('.rightContent .alert').show();
+                       if(data.type){
+                           alertSuccess(data.message);
+                           $('#forget').hide();
+                           $('#login').show();
+                       }else{
+                           alertError(data.message);
+                       }
+                     },
+                     error:function(e){
+                        console.log("error")
+                     }
+                 })
+            }else{
+                $('.rightContent .alert').show();
+                alertError(msgError)
+            }
+        })
+
+       $('.backLogin>a').click(function(e){
+           goLogin();
+       })
+       $('.backRegister>a').click(function(e){
+          goRegister();
+       })
+       $('.forgetPwd>a').click(function(e){
+         goForget();
+       })
+    </script>
+</body>
+</html>
