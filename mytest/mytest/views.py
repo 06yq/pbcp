@@ -1,10 +1,8 @@
 # 用户注册
-from audioop import reverse
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib import auth
-
 
 def login(request):
     return render(request,'login.html')
