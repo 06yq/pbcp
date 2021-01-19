@@ -1,0 +1,1974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="../../static/js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet"  type="text/css" media="all"  href="../../static/js/daterangepicker-master/daterangepicker.css">
+
+    <script src="../../static/js/jquery-3.4.0.min.js"></script>
+    <script src="../../static/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="../../static/js/tableExport.js"></script>
+    <script src="../../static/js/bootstrap-table.min.js"></script>
+    <script src="../../static/js/bootstrap-table-zh-CN.min.js"></script>
+    <script src="../../static/js/moment-with-locales.min.js"></script>
+    <script src="../../static/js/daterangepicker-master/moment.min.js"></script>
+    <script src="../../static/js/daterangepicker-master/daterangepicker.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+    <style>
+    .symbolPLPie{
+        display:none
+    }
+     #monenyChart{
+            width: 1600px;
+            height: 600px;
+            border: 1px solid #337ab7;
+            padding: 20px 0;
+        }
+      #dealChartP,#dealChartL{
+        width: 800px;
+        height: 700px;
+        border: 1px solid #337ab7;
+        padding: 20px 0;
+      }
+        .container-center{
+            width:75%;
+            margin:0 auto;
+        }
+        .navbar{
+            border-color: transparent;
+            border-bottom:4px solid;
+            border-image: -webkit-linear-gradient(#a04a4d,#c0555b,#9d4551) 1 1 1;
+            border-image: -moz-linear-gradient(#a04a4d,#c0555b,#9d4551) 1 1 1;
+            border-image: linear-gradient(#a04a4d,#c0555b,#9d4551) 1 1 1;
+            background-color: transparent;
+        }
+        .navbar-nav>li>a{
+            line-height: 48px;
+        }
+        .navbar-nav>li>a:hover{
+            color:#9d4551 !important
+        }
+        .navbar-inverse .navbar-nav>.active>a{
+            background: transparent !important;
+            color:#9d4551 !important;
+        }
+        .content{
+            width:98%;
+            margin:10px auto;
+        <!--            display:flex;-->
+        <!--            justify-content:space-around;-->
+        }
+
+        .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+            z-index: 2;
+            color: #fff;
+            background-color: #9d4551 !important;
+            border-color: #9d4551 !important;
+        }
+
+        a{
+            cursor:pointer;
+            font-size:12px
+        }
+        #pbWord,#pbRisk,#pbEqu,#pbAccount{
+            display:none
+        }
+        .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
+            background-color: #9d4551 !important;
+            border-color: white !important;
+        }
+        .pagination>li>a, .pagination>li>span {
+            color: #9d4551;
+        }
+        .table-bordered>tbody>tr>td{
+            font-size:12px;
+            padding: 3px;
+            line-height:30px;
+            text-align:center
+        }
+        .pagination{
+            margin:0 !important;
+        }
+
+
+        .btn-w3r {
+            margin:0 0 15px 0;
+        <!--            background: #cb60b3; /* Old browsers */-->
+            background: -moz-linear-gradient(top,  #a04a4d 0%,#c0555b 50%, #9d4551 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a04a4d), color-stop(50%,#c0555b), color-stop(100%,#9d4551)); /   *   Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  #a04a4d 0%,#c0555b 50%, #9d4551 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top,  #a04a4d 0%,#c0555b 50%, #9d4551 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top,  #a04a4d 0%,#c0555b 50%, #9d4551 100%); /* IE10+ */
+            background: linear-gradient(to bottom,  #a04a4d 0%,#c0555b 50%,#9d4551 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a04a4d', endColorstr='#c0555b',GradientType=0 ); /* IE6-9 */
+            border:1px solid white;
+            color:white;
+            outline: none;
+        }
+        .btn-w3r:hover{
+            color:white;
+        }
+         .btn-w3r1 {
+            background: -moz-linear-gradient(top,  #a04a4d 0%,#c0555b 50%, #9d4551 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a04a4d), color-stop(50%,#c0555b), color-stop(100%,#9d4551)); /   *   Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top,  #a04a4d 0%,#c0555b 50%, #9d4551 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top,  #a04a4d 0%,#c0555b 50%, #9d4551 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top,  #a04a4d 0%,#c0555b 50%, #9d4551 100%); /* IE10+ */
+            background: linear-gradient(to bottom,  #a04a4d 0%,#c0555b 50%,#9d4551 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a04a4d', endColorstr='#c0555b',GradientType=0 ); /* IE6-9 */
+            border:1px solid white;
+            color:white;
+            outline: none;
+        }
+        .btn-w3r1:hover{
+            color:white;
+        }
+        .modal-body .form-group{
+            margin:15px
+        }
+        #pbcpb .alert{
+            position:absolute;
+            top:-10px;
+            text-align:center;
+            display:none
+        }
+        #pbAccount .alert{
+            position:absolute;
+            top:100px;
+            text-align:center;
+            display:none
+        }
+        #iframePbTable{
+            height:800px !important;
+        }
+        .PLlist{
+            margin:20px 0
+        }
+        .syfx{
+             position:absolute;
+             right:150px;
+             top:10px;
+             font-size:20px;
+             color:red
+        }
+        #money .alert{
+             position:absolute;
+             right:500px;
+             top:-10px;
+             display:none
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-center">
+        <div class="collapse navbar-collapse" id="example-navbar-collapse">
+            <ul class="nav navbar-nav navUl">
+                <li class="active"><a class="icon-bar" href="/">首页</a></li>
+                <li><a class="icon-bar " href="#" onclick="navMenu('pbWord')">配邦分析</a></li>
+                <li><a class="icon-bar" href="#" onclick="navMenu('pbRisk')">配邦风控</a></li>
+                <li><a class="icon-bar" href="#" onclick="navMenu('pbEqu')">配邦净值</a></li>
+                <li><a class="icon-bar" href="#" onclick="navMenu('pbAccount')">配邦账户</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a>欢迎您,{{account}}</a></li>
+                <li><a href="/logout">安全退出</a></li>
+                <li><a> 当前日期:<span class="nowDate"></span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="content">
+    <!--        首页-->
+    <div id="pbcpb" class="row">
+        <div class="col-md-1 list-group leftMenu" id="leftMenu">
+
+        </div>
+        <div class="col-md-11">
+            <div class="row">
+                <button type="button" style="width:100px"  class="btn btn-w3r col-md-1" data-toggle="modal" data-target="#addModal">新增净值</button>
+                <button type="button" style="width:100px"  class="exportData btn btn-w3r col-md-1">导出数据</button>
+                <button type="button" style="width:100px"  class="btn btn-w3r col-md-1" data-toggle="modal" data-target="#addEquPbModal">新增导航</button>
+                <div class="alert alert-danger col-md-offset-2 col-md-5" role="alert" style="width:300px"></div>
+            </div>
+            <iframe id="iframePbTable" src="pbEquList.html?name=配邦一号" width="100%"  frameborder="no" border="0" marginwidth="0" marginheight=" 0" scrolling="no" allowtransparency="yes"></iframe>
+            <div id="tableName" style="display:none">配邦一号</div>
+        </div>
+    </div>
+    <!--        配邦分析-->
+    <div id="pbWord">
+        <div class="col-md-1" id="wordNav">
+            <a class="list-group-item active" onclick="monenyTable()">
+                资金表</a>
+            <a class="list-group-item" onclick="SymbolTable()">
+                成交记录表</a>
+        </div>
+        <div class="col-md-11">
+            <form class="form-inline" role="form" style="margin-bottom:20px">
+                <div class="form-group">
+                        <label for="account" class="control-label">账号</label>
+                        <select class="form-control" id="account">
+                            <option value="-1">请选择</option>
+                        </select>
+                    </div>
+                <div class="form-group">
+                        <div id="divDateId" class="pull-left dateRange">
+                            <input class="form-control" id="searchDate"></input>
+                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                        </div>
+                    </div>
+                <button  class="btn btn-w3r1 search">搜索</button>
+                <button  class="btn btn-w3r1 exportZJ">导出数据</button>
+                <input type="date" id="time">
+                <button  class="btn btn-w3r1 refresh">刷新</button>
+            </form>
+            <div id="money">
+                <div class="alert alert-danger col-md-offset-2 col-md-5" role="alert" style="width:300px"></div>
+                <div class="syfx"><span>风险收益比：</span><span class="syfxb"></span></div>
+                <div id="monenyChart"></div>
+                <div class="monenyTable">
+                    <table class="table table-striped" id="monenyTable"></table>
+                </div>
+            </div>
+            <div class="symbolPLPie">
+                 <div class="row">
+                    <div class="col-md-6" id="dealChartP"></div>
+                    <div class="col-md-6" id="dealChartL"></div>
+
+                </div>
+                <div class="PLlist row">
+                    <div class=" col-md-4 col-md-offset-4">
+                            <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">胜率/盈亏比</h3>
+                            </div>
+                            <table class="table">
+                                <th>胜率</th><th>盈亏比</th>
+                                <tr><td class="sl">52%</td><td class="ykb">52%</td></tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                <table class="table table-striped" id="dealTable"></table>
+
+            </div>
+        </div>
+    </div>
+    <!--        配邦风控-->
+    <div id="pbRisk">配邦风控</div>
+    <!--        配邦净值图-->
+    <div id="pbEqu" class="row pbcpjz">
+        <div class="col-md-1" id="menulist">
+
+        </div>
+        <!--左边菜单栏-->
+        <div class="col-md-11" id="right">
+            <iframe id="iframePbInfo" src="pbcpInfo.html?name=配邦一号" width="100%"  frameborder="no" border="0" marginwidth="0" marginheight=" 0" scrolling="no" allowtransparency="yes"></iframe>
+        </div>
+    </div>
+    <!--        配邦产品账户-->
+    <div id="pbAccount" class="container-center">
+        <div class="row">
+            <button type="button" style="width:90px"  class="btn btn-w3r col-md-1 addPbcp" data-toggle="modal" data-target="#addPbcp">新增产品</button>
+            <button type="button" style="width:90px"  class="btn btn-w3r col-md-1 addAccount" data-toggle="modal" data-target="#addAccount">新增账号</button>
+            <button type="button" style="width:100px"  class="btn btn-w3r col-md-offset-3  col-md-1" onclick="exportData()">导出数据</button>
+            <div class="alert alert-danger col-md-offset-2 col-md-5" role="alert" style="width:300px"></div>
+        </div>
+        <table class="table table-striped" id="table" data-use-row-attr-func="true" data-reorderable-rows="true"></table>
+    </div>
+</div>
+<!--    新增净值模板-->
+<div class="modal fade" id="addModal"  data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style = "width:1000px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">新增数据</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline">
+                    <!-- <div class="form-group">
+                       <label for="type">产品类型</label>
+                       <select class="form-control" id="type">
+                         <option value="1">配邦一号</option>
+                         <option value="2">配邦二号</option>
+                         <option value="3">配邦三号</option>
+                         <option value="5">配邦五号</option>
+                         <option value="0">配邦产品</option>
+                         <option value="4">配邦私人</option>
+                       </select>
+                     </div>-->
+                    <div>
+                        <div class="form-group">
+                            <label for="startBlance">初始资金</label>
+                            <input type="text" class="form-control" id="startBlance">
+                        </div>
+                        <div class="form-group">
+                            <label for="startTime">初始日期</label>
+                            <input type="date" class="form-control" id="startTime">
+                        </div>
+                        <div class="form-group">
+                            <label for="endTime">当前日期</label>
+                            <input type="date" class="form-control" id="endTime">
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <label for="gpBlance">股&nbsp;票&nbsp;资&nbsp;金&nbsp;&nbsp;&nbsp;</label>
+                            <input type="text" class="form-control" id="gpBlance">
+                        </div>
+                        <div class="form-group">
+                            <label for="qhBlance">期&nbsp;货&nbsp;资&nbsp;金&nbsp;&nbsp;&nbsp;</label>
+                            <input type="text" class="form-control" id="qhBlance">
+                        </div>
+                        <div class="form-group">
+                            <label for="gpMarket">股票占用资本</label>
+                            <input type="text" class="form-control" id="gpMarket">
+                        </div>
+                        <div class="form-group">
+                            <label for="qhMarket">期货占用资本</label>
+                            <input type="text" class="form-control" id="qhMarket">
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-group">
+                            <label for="manage">管理费</label>
+                            <input type="text" class="form-control" id="manage">
+                        </div>
+                        <div class="form-group">
+                            <label for="bonus">分红费</label>
+                            <input type="text" class="form-control" id="bonus">
+                        </div>
+                        <div class="form-group">
+                            <label for="withdrawal">存取金额</label>
+                            <input type="text" class="form-control" id="withdrawal">
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-w3r addDataEqu">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="addEquPbModal"  data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style = "width:650px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabelEqu">新增导航</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline">
+                    <div>
+                        <div class="form-group">
+                            <label for="navCpAccount">产品账号</label>
+                            <select class="form-control" id="navCpAccount"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="navCpName">产品名</label>
+                            <input type="text" class="form-control" id="navCpName">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-w3r addDataEquCp">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--    新增产品模板-->
+<div class="modal fade" id="addPbcp"  data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myLabelPbcp">
+    <div class="modal-dialog modal-lg" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myLabelPbcp"></h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="cpId">产品Id</label>
+                        <input type="text" class="form-control" id="cpId">
+                    </div>
+                    <div class="form-group">
+                        <label for="cpName">产品名称</label>
+                        <input type="text" class="form-control" id="cpName">
+                    </div>
+                    <div class="form-group">
+                        <label for="cpRemarks">备注</label>
+                        <input type="text" class="form-control" id="cpRemarks">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-w3r addDataPbcp" onclick="addUpdataPbcp(pbcpType)">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 信息删除确认 -->
+<div class="modal fade" id="delModel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content message_align">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">提示信息</h4>
+            </div>
+            <div class="modal-body">
+                <p>您确认要删除吗？</p>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="url"/>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <a onclick="delData(delType,delId,underId)" class="btn btn-w3r" data-dismiss="modal">确定</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--    新增账户模板-->
+<div class="modal fade" id="addAccount"  data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myLabel">
+    <div class="modal-dialog modal-lg" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline">
+                    <div>
+                        <div class="form-group">
+                            <label for="underId">所属产品</label>
+                            <select class="form-control" id="underId">
+                                <!-- <option value="1">配邦一号</option>
+                                 <option value="2">配邦二号</option>
+                                 <option value="3">配邦三号</option>
+                                 <option value="5">配邦五号</option>
+                                 <option value="4">配邦私人</option>-->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="underType">所属端</label>
+                            <select class="form-control" id="underType">
+                                <option value="0">股票端</option>
+                                <option value="1">期货端</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label for="bondName">证券名称</label>
+                            <input type="text" class="form-control" id="bondName">
+                        </div>
+                        <div class="form-group">
+                            <label for="bondAccount">证券账号</label>
+                            <input type="text" class="form-control" id="bondAccount">
+                        </div>
+                        <div class="form-group">
+                            <label for="bondPwd">证券密码</label>
+                            <input type="text" class="form-control" id="bondPwd">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="remarks">备注</label>
+                        <input type="text" class="form-control" id="remarks">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-w3r" onclick="addUpdataAccount(accountType)">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+    function alertSuccess(msg,name){
+        $('.alert').show().delay(3000).hide(300);;
+        $('.alert').addClass("alert-success");
+        $('.alert').removeClass("alert-danger");
+        $('.alert').html(msg+",请刷新数据后查看");
+    }
+    function alertError(msg,name){
+        $('.alert').show().delay(3000).hide(300);;
+        $('.alert').removeClass("alert-success");
+        $('.alert').addClass("alert-danger");
+        $('.alert').html(msg);
+    }
+<!--配邦分析-->
+$(function(){
+    var accountId = '';
+    var pbcpId = '';
+    var  accountType = '';
+    var  pbcpType = '';
+    var delType = '';
+    var delId = '';
+    var underId = '';
+    var seachType='money'
+    var account = [];
+    //当前日期
+    $(".nowDate").html(show());
+    var nowDate = show();
+    $('#endTime').val(show());
+    $('#time').val(show());
+    var height = document.documentElement.clientHeight - 150;
+    <!--        var height=1000;-->
+    document.getElementById('iframePbTable').style.height = height + 'px';
+    document.getElementById('iframePbInfo').style.height = height + 'px';
+    getEquCp();
+})
+
+ //获取产品
+function getEquCp(){
+   $.ajax({
+      url:'/polls/getEquCp/',
+      contentType: "application/json;charset=utf-8",
+      type: 'GET',
+      json: 'callback',
+      async: false,
+      success:function(json){
+          var leftMenu = $("#leftMenu");
+          for (var i = 0; i < json.length; i++) {
+            if(i==0){
+               leftMenu.append("<a class='list-group-item active' onclick=menuClick('pbEquList.html','"+json[i]['产品名']+"','iframePbTable')>"+json[i]['产品名']+"</a>");
+            }else{
+               leftMenu.append("<a class='list-group-item' onclick=menuClick('pbEquList.html','"+json[i]['产品名']+"','iframePbTable')>"+json[i]['产品名']+"</a>");
+            }
+           }
+          var menulist = $("#menulist");
+          for (var i = 0; i < json.length; i++) {
+            if(i==0){
+               menulist.append("<a class='list-group-item active' onclick=menuClick('pbcpInfo.html','"+json[i]['产品名']+"','iframePbInfo')>"+json[i]['产品名']+"</a>");
+            }else{
+               menulist.append("<a class='list-group-item' onclick=menuClick('pbcpInfo.html','"+json[i]['产品名']+"','iframePbInfo')>"+json[i]['产品名']+"</a>");
+            }
+           }
+       },
+       error:function(e){
+          console.log('error')
+       }
+   })
+}
+
+<!--配邦分析搜索-->
+$('.search').click(function(){
+    var account = $('#account').val();
+    var searchDate = $('#searchDate').val().split(' - ')
+    var startTime = searchDate[0];
+    var endTime = searchDate[1];
+    if(account!=-1){
+       if(seachType=='money'){
+            monenyTable(account,startTime,endTime)
+        }
+        if(seachType=='deal'){
+            SymbolTable(account,startTime,endTime)
+        }
+    }else{
+       alertError('请选择账号')
+    }
+})
+<!--配邦分析导出数据-->
+$('.exportZJ').click(function(){
+    var account = $('#account').val();
+    var searchDate = $('#searchDate').val().split(' - ')
+    var startTime = searchDate[0];
+    var endTime = searchDate[1];
+    if(account!=-1){
+       if(seachType=='money'){
+            exportZJData(account,startTime,endTime)
+        }
+        if(seachType=='deal'){
+            exportDealData(account,startTime,endTime)
+        }
+    }else{
+       alertError('请选择账号')
+    }
+})
+    <!--配邦分析刷新-->
+$('.refresh').click(function(){
+    var account = $('#account').val();
+    console.log(account);
+    if(account!=-1){
+        if(seachType=='money'){
+            refreshMoney(account)
+        }
+        if(seachType=='deal'){
+            refreshDeal()
+        }
+    }else{
+        alertError('请选择账号')
+    }
+
+})
+function refreshMoney(account){
+    var time = $('#time').val()
+    var data = {'account':account,'nowDate':time}
+    $.ajax({
+        url:'/polls/refershMoney/',
+        dataType:'json',
+        type:'POST',
+        data:data,
+        async: false,
+        success:function(data){
+           monenyTable();
+        },
+        error:function(e){
+            console.log(e)
+        }
+      })
+}
+<!--刷新成交记录-->
+function refreshDeal(){
+      $.ajax({
+         url:'/polls/refershDeal/',
+        dataType:'json',
+        type:'GET',
+        async: false,
+        success:function(data){
+            SymbolTable();
+        },
+        error:function(e){
+            console.log(e)
+        }
+      })
+}
+<!--获取成交记录表-->
+function SymbolTable(account,startTime,endTime){
+    $('.symbolPLPie').show();
+    $('#money').hide();
+    $('#time').hide();
+    seachType='deal';
+<!--    getQhAccount();-->
+   data = {'account':account,'startTime':startTime,'endTime':endTime}
+   $.ajax({
+    url:'/polls/getDealRecord/',
+    dataType:'json',
+    type:'POST',
+    data:data,
+    async: false,
+    success:function(json){
+        var columnsArray = [];
+        var data1=[];
+        var data2=[];
+        var dataP=[];
+        var dataL=[];
+        var lotTotal=0;
+        var lotTotalP=0;
+        for(var i = 0; i < json.length; i++){
+           lotTotal+=parseInt(json[i]['手数'])
+           symbol1 = json[i]['品种']
+            var reg=/[a-z,A-Z]/g;//匹配任意字母
+            var t=symbol1.match(reg);
+            var symbol = ''
+            for(var c in t){
+                symbol+=t[c]
+            }
+            value=parseFloat(json[i]['盈亏'].replace(",",""))
+<!--            value=parseFloat(json[i]['盈亏'])-->
+             var flag1=0;
+             var flag2=0;
+            if(value>0){
+                lotTotalP+=parseInt(json[i]['手数'])
+                data1.forEach(function(key,index){
+                   if(key['name']==symbol){
+                       key['value']+=value;
+                       flag1=1
+                     }
+                })
+                dataP.forEach(function(key,index){
+                   if(key['name']==symbol){
+                       key['value']+=value;
+                       flag1=1
+                     }
+                })
+              if(flag1!==1){
+                data1.push({'name':symbol,'value':value})
+                dataP.push(symbol1)
+                }
+            }
+
+            if(value<0){
+                data2.forEach(function(key){
+                   if(key['name']==symbol){
+                       key['value']+=value;
+                       flag2 = 1
+                     }
+                })
+                 if(flag2!=1){
+                    data2.push({'name':symbol,'value':value})
+                    dataL.push(symbol1)
+                }
+            }
+        }
+        var dataP1=[];
+        var dataL1=[];
+        for(var k=0;k<data1.length;k++){
+            dataP1[k]=({'name':dataP[k],'value':data1[k]['value']})
+        }
+         for(var j=0;j<data2.length;j++){
+            dataL1[j]=({'name':dataL[j],'value':data2[j]['value']})
+        }
+        console.log(lotTotalP,lotTotal);
+        var sl = ((lotTotalP/lotTotal)*100).toFixed(2)+'%'
+        dealChart(dataP1,dataL1,sl)
+                    for (var i = 0; i < (Object.keys(json[0])).length; i++) {//Object.keys(obj) 获取key名称
+                        var property = (Object.keys(json[0]))[i];//id   username
+                        columnsArray.push({
+                            "title": property,
+                            "field": property,
+                            switchable: true,
+                            sortable: true
+                        });
+                    }
+                    if (json[0].id == undefined) {
+                        json = [];
+                     }
+                    $('#dealTable').bootstrapTable('destroy').bootstrapTable({
+                        data: json,
+                        toolbar: '#toolbar',
+                        singleSelect: true,
+                        clickToSelect: true,
+                        sortName: "日期",
+                        sortOrder: "desc",
+                        sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                        pageSize: 10,
+                        pageNumber: 1,
+                        pageList: "[10, 25, 50, 100, All]",
+                        pagination: true, //是否分页
+                        columns: columnsArray,
+                    });
+                    $('.fixed-table-loading').hide();
+                    $('#dealTable').bootstrapTable('hideColumn', 'id'); //隐藏字段
+    },
+    error:function(e){
+        console.log("error");
+    }
+   })
+}
+<!--获取资金表 -->
+function monenyTable(account,startTime,endTime){
+        $('.symbolPLPie').hide();
+        $('#money').show();
+        $('#time').show();
+        seachType='money'
+        getAccount();
+        <!--   getQhAccount();-->
+        data = {'account':account,'startTime':startTime,'endTime':endTime}
+        $.ajax({
+            url:'/polls/getQhfx/',
+            dataType:'json',
+            type:'POST',
+            data:data,
+            async: false,
+            success:function(json){
+                var columnsArray = [];
+                var time=[],equtiy=[],back=[],list=[];
+                var nowMoney=[],totalAccess=0,maxMoney,minMoney;
+                var startM,endM;
+                var syfxb=0;
+                var d= dateTimeDifference(json[0]['日期'],json[json.length-1]['日期'],'DD') //天数
+                var m= dateTimeDifference(json[0]['日期'],json[json.length-1]['日期'],'MM')
+                var y= dateTimeDifference(json[0]['日期'],json[json.length-1]['日期'],'YY')
+                for(var i = 0; i < json.length; i++){
+                    time.push(json[i]['日期'])
+                    equtiy.push(json[i]['净值'])
+                    back.push(json[i]['回撤'])
+                    nowMoney.push(json[i]['净值'])
+                    if(i==json.length-1){
+                        MaxBack = json[i]['最大回撤']
+                        maxEquity = json[i]['最大净值']
+                    }
+                    json[i]['回撤'] =  json[i]['回撤']+'%';
+                    json[i]['最大回撤'] =  json[i]['最大回撤']+'%';
+                    totalAccess+=json[i]['当日存取']
+                }
+                maxMoney=Math.max.apply(null,nowMoney)
+                minMoney=Math.min.apply(null,nowMoney)
+                startM=nowMoney[0]
+                endM=nowMoney[nowMoney.length-1]
+                if(y>1){
+                    syfxb= (((endM-startM)/y)/(maxMoney-minMoney)).toFixed(2)
+                }else if(m>1){
+                    syfxb= ((((endM-startM)/m)*12)/(maxMoney-minMoney)).toFixed(2)
+                }else if(d>1){
+                    syfxb=((((endM-startM)/d)*365)/(maxMoney-minMoney)).toFixed(2)
+                }
+                if(MaxBack=='') MaxBack=0
+                if(maxEquity=='') maxEquity=0
+                list.push({
+                    'time':time,
+                    'equtiy':equtiy,
+                    'back':back,
+                    'title':json[0]['账号'],
+                    'MaxBack':MaxBack,
+                    'maxEquity':maxEquity,
+                    'minEqu':Math.min.apply(null,equtiy),
+                })
+
+                for (var i = 0; i < (Object.keys(json[0])).length; i++) {//Object.keys(obj) 获取key名称
+                    var property = (Object.keys(json[0]))[i];//id   username
+                    columnsArray.push({
+                        "title": property,
+                        "field": property,
+                        switchable: true,
+                        sortable: true
+                    });
+                }
+
+                if (json[0].id == undefined) {
+                    json = [];
+                }
+                moneyChart(list,syfxb)
+                $('#monenyTable').bootstrapTable('destroy').bootstrapTable({
+                    data: json,
+                    toolbar: '#toolbar',
+                    singleSelect: true,
+                    clickToSelect: true,
+                    sortName: "日期",
+                    sortOrder: "desc",
+                    sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                    pageSize: 10,
+                    pageNumber: 1,
+                    pageList: "[10, 25, 50, 100, All]",
+                    pagination: true, //是否分页
+                    columns: columnsArray,
+                });
+                $('.fixed-table-loading').hide();
+                $('#monenyTable').bootstrapTable('hideColumn', 'id'); //隐藏字段
+            },
+            error:function(e){
+                console.log("error");
+            }
+        })
+    }
+function dealChart(data,data1,sl){
+    $('.sl').html(sl);
+    var myChart = echarts.init(document.getElementById('dealChartP'));
+    var myChartL = echarts.init(document.getElementById('dealChartL'));
+    var text1=0;
+    var text2=0;
+    for(var i=0;i<data.length;i++){
+        text1+=data[i]['value']
+    }
+    text1=text1+'';
+    for(var i=0;i<data1.length;i++){
+        text2+=data1[i]['value']
+    }
+     text2=Math.abs(text2)+'';
+     var ykb=(text1/text2).toFixed(2)
+     console.log(sl,ykb);
+     $('.ykb').html(ykb);
+     option = {
+    		    title: {//标题组件
+                   textStyle: {
+                   color: "#333333",
+                   fontSize: 12,
+                   }
+                },
+    		    tooltip: {
+    		        trigger: 'item',
+    		        formatter: "{a} <br/>{b}: {c} ({d}%)",
+    		        textStyle:{    //图例文字的样式
+                        color:'#fff',  //文字颜色
+                        fontSize:10    //文字大小
+                    }
+    		    },
+    		    graphic:[
+    		         {
+    		      		type: 'text',
+    		      		top: '43%',
+    		      		left: 'center',
+    		      		style: {
+    		      		   text: text1,
+    		      		   fill: '#333333',
+    		      		   fontSize: 20,
+    		      		   fontWeight: 'normal'
+    		      		}
+    		      	},{
+    		      		type: 'text',
+    		      		top: '53%',
+    		      		left: 'center',
+    		      		style: {
+    		      		   text: '盈利比',
+    		      		   fill: '#FF0000',
+    		      		   fontSize: 12,
+    		      		   fontWeight: 'normal'
+    		      		}
+    		      	},
+    		    ],
+
+    		    //圆环的颜色
+    		    color:['#48cda6','#fd87fb','#11abff','#ffdf6f','#968ade','#B8860B','#DAA520',
+    		    "#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000",
+    		    '#C71585','#77DDFF','#33CCFF','#00BBFF','#FF88C2','#FF0088','#88AA00','#0088A8','#008800','#990099',
+    		    '#550088','#7744FF','#778899','#003377','#800000','#2F4F4F','#ADFF2F','#008B8B'],
+    		    // 图例
+    		    legend: {
+    		    	// 图例选择的模式，控制是否可以通过点击图例改变系列的显示状态。默认开启图例选择，可以设成 false 关闭。
+    		    	selectedMode: true,
+    		        /* orient: 'vertical', */
+    		       /*  x : 'right',   //图例显示在右边
+                    y: 'center',  */  //图例在垂直方向上面显示居中
+                    bottom:0,
+                    itemWidth:10,  //图例标记的图形宽度
+                    itemHeight:10, //图例标记的图形高度
+<!--    		        data:['基本工资','福利奖金','出差补贴','交补话补','岗位工资'],-->
+    		        textStyle:{    //图例文字的样式
+                        color:'#A6A8B6',  //文字颜色
+                        fontSize:10    //文字大小
+                    }
+    		    },
+    		    series: [
+    		        {
+    		            name:'品种盈利',//代表a的值，系列名称
+    		            type:'pie',
+    		            center:['50%','45%'], //饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标。
+    		            radius: ['45%', '70%'],//饼图的半径，数组的第一项是内半径，第二项是外半径。[ default: [0, '75%'] ]
+    		            avoidLabelOverlap: true,
+    		           /*  animation: false, */  //是否禁用动画效果
+    		            label: {
+    		                normal: {
+    		                    show: true,//是否显示标签的位置。'outside'饼图扇区外侧，通过视觉引导线连到相应的扇区。'inside','inner' 同 'inside',饼图扇区内部。'center'在饼图中心位置。
+    		                    position: 'left',
+    		                    //显示的标签的内容
+    		                    //a（系列名称），b（数据项名称），c（数值）, d（百分比）
+    		                    formatter: "{b}（{d}%）",
+    		                },
+    		                emphasis: {
+    		                	//鼠标放在圆环上显示的标签样式
+    		                    show: true,
+    		                    textStyle: {
+    		                        fontSize: '12',
+    		                        fontWeight: 'bold'
+    		                    }
+    		                }
+    		            },
+    		            labelLine: {
+    		                normal: {
+    		                    show: true,//是否显示引导线
+  	               		        length:10,  //百分比引导线
+  	               		        length2:20    //视觉引导项第二段的长度。
+    		                }
+    		            },
+    		            itemStyle: {
+                            normal: {
+                                borderColor: "#FFFFFF",
+                                borderWidth: 1,
+                                label:{
+                                    show:true,
+                                    formatter:'{d}%'
+                                },
+                            }
+                        },
+                        // 系列中的数据内容数组。
+    		            data:data
+    		        }
+    		    ]
+    		};
+    		 option1 = {
+    		    title: {//标题组件
+                   textStyle: {
+                   color: "#333333",
+                   fontSize: 12,
+                   }
+                },
+    		    tooltip: {
+    		        trigger: 'item',
+    		        formatter: "{a} <br/>{b}: {c} ({d}%)",
+    		        textStyle:{  //图例文字的样式
+                        color:'#fff',  //文字颜色
+                        fontSize:10    //文字大小
+                    }
+    		    },
+    		    graphic:[
+    		         {
+    		      		type: 'text',
+    		      		top: '43%',
+    		      		left: 'center',
+    		      		style: {
+    		      		   text:text2,
+    		      		   fill: '#333333',
+    		      		   fontSize: 20,
+    		      		   fontWeight: 'normal'
+    		      		}
+    		      	},{
+    		      		type: 'text',
+    		      		top: '53%',
+    		      		left: 'center',
+    		      		style: {
+    		      		   text: '亏损比',
+    		      		   fill: '#228B22',
+    		      		   fontSize: 12,
+    		      		   fontWeight: 'normal'
+    		      		}
+    		      	},
+    		    ],
+    		    //圆环的颜色
+
+    		    color:['#48cda6','#fd87fb','#11abff','#ffdf6f','#968ade','#B8860B','#DAA520',
+    		    "#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000",
+    		    '#C71585 ','#77DDFF','#33CCFF','#00BBFF','#FF88C2','#FF0088','#88AA00','#0088A8','#008800','#990099',
+    		    '#191970','#7744FF','#778899','#003377','#800000','#2F4F4F','#ADFF2F','#008B8B'],
+    		    // 图例
+    		    legend: {
+    		    	// 图例选择的模式，控制是否可以通过点击图例改变系列的显示状态。默认开启图例选择，可以设成 false 关闭。
+    		    	selectedMode: true,
+    		        /* orient: 'vertical', */
+    		       /*  x : 'right',   //图例显示在右边
+                    y: 'center',  */  //图例在垂直方向上面显示居中
+                    bottom:0,
+                    itemWidth:10,  //图例标记的图形宽度
+                    itemHeight:10, //图例标记的图形高度
+    		        textStyle:{    //图例文字的样式
+                        color:'#A6A8B6',  //文字颜色
+                        fontSize:10    //文字大小
+                    }
+    		    },
+    		    series: [
+    		        {
+    		            name:'品种亏损',//代表a的值，系列名称
+    		            type:'pie',
+    		            minAngle:5,
+    		            center:['50%','45%'], //饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标。
+    		            radius: ['45%', '70%'],//饼图的半径，数组的第一项是内半径，第二项是外半径。[ default: [0, '75%'] ]
+    		            avoidLabelOverlap: true,
+    		           /*  animation: false, */  //是否禁用动画效果
+    		            label: {
+    		                normal: {
+    		                    show: true,//是否显示标签的位置。'outside'饼图扇区外侧，通过视觉引导线连到相应的扇区。'inside','inner' 同 'inside',饼图扇区内部。'center'在饼图中心位置。
+    		                    position: 'left',
+    		                    //显示的标签的内容
+    		                    //a（系列名称），b（数据项名称），c（数值）, d（百分比）
+    		                    formatter: "{b}（{d}%）",
+    		                },
+    		                emphasis: {
+    		                	//鼠标放在圆环上显示的标签样式
+
+    		                    show: true,
+    		                    textStyle: {
+    		                        fontSize: '12',
+    		                        fontWeight: 'bold'
+    		                    }
+    		                }
+    		            },
+    		            labelLine: {
+    		                normal: {
+    		                    show: true,//是否显示引导线
+  	               		        length:10,  //百分比引导线
+  	               		        length2:20    //视觉引导项第二段的长度。
+    		                }
+    		            },
+    		            itemStyle: {
+                            normal: {
+                                borderColor: "#FFFFFF",
+                                borderWidth: 1,
+                                label:{
+                                    show:true,
+                                    formatter:'{d}%'
+                                },
+                            }
+                        },
+                        // 系列中的数据内容数组。
+    		            data:data1
+    		        }
+    		    ]
+    		};
+       myChart.setOption(option);
+       myChartL.setOption(option1);
+}
+function moneyChart(pbcpInfoList,syfxb){
+    if(syfxb>0){
+        $('.syfx').css('color','red')
+    }else{
+        $('.syfx').css('color','green')
+    }
+    $('.syfxb').html(syfxb)
+<!--        图表信息-->
+    var myChart = echarts.init(document.getElementById('monenyChart'));
+    var pbcpInfoTime=pbcpInfoList[0]['time']
+    var length = pbcpInfoTime.length
+    var maxBack = pbcpInfoList[0]['MaxBack']
+    var addNum=10
+    if(maxBack<10){
+        addNum=3
+    }else if(maxBack<20){
+        addNum=35
+    }else if(maxBack>=20){
+        addNum=90
+    }
+    var xLength = 0;
+    var rLength = 90;
+    if(length > 100 ){
+        xLength=Math.floor((length/100)+1)
+    }
+    if(length < 25 ){
+        rLength=0
+    }else if(length < 50){
+        rLength=30
+    }else if(length < 100){
+        rLength=45
+    }
+    else if(length < 108){
+        rLength=60
+    }
+    // 指定图表的配置项和数据
+    let option = {
+        color : ['#d0000b','#095726'], //修改曲线颜色
+        title : {
+            x: 'center', //标题居中
+            text: pbcpInfoList[0]['title']+'净值图',
+            itemGap: 10,                   //间距
+            textStyle: {                   //文字设置
+                color: '#337ab7',
+                fontFamily: '宋体',
+                fontSize: 30,
+                fontWeight: 'bolder'
+            }
+        },
+        tooltip : {
+            trigger: 'axis',
+            showDelay : 0,
+            axisPointer: {
+                show: true,
+                type : 'cross',
+                lineStyle: {
+                    type : 'dashed',
+                    width : 1
+                }
+            }
+        },
+        legend: {
+            y: 'bottom', //图例说明(属性)在底部显示，不写默认在顶部显示
+            type: 'scroll', //图例说明(属性)过多时，设置为scroll，加上滚动翻页
+            data: ['当前净值(左)','当前回撤(右)'], //属性类别
+            selectedMode:'multiple', //选中模式
+            selected:{ //初始默认后面一条数据不显示
+                '当前净值(左)':true
+            }
+        },
+        toolbox: {
+            show : true,
+            orient: 'vertical',
+            left: 'right',
+            top: 'center',
+            feature : {
+                mark : {show: true},
+                dataZoom : {show: true},
+                dataView : {show: true},
+                magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        grid:{
+            left: '3%', //y轴离左侧边框边距
+            right: '3%', //y轴离右侧边框边距
+            bottom: '12%', //x轴离底部边框边距
+            containLabel: true
+        },
+        calculable : true,
+        //动态滑块
+        dataZoom : {
+            show : true,
+            realtime : true,
+            type: 'slider', // slider表示有滑动块的，inside表示内置的
+            bottom:"5%",
+            start: 0, // 初始x轴位置在最右边
+            end: 100, // 初始x轴位置在最右边
+            borderColor:"transparent", // 滚动条边框颜色
+            height: 10
+        },
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                axisLabel: {
+                    interval: xLength,
+                    rotate: rLength,    //倾斜度
+                    show: true,
+                    textStyle: {     //轴上文字
+                        color: '#515c66'   //颜色
+                    }
+                },
+                data:pbcpInfoList[0]['time']
+            }
+        ],
+        yAxis : [
+            {
+                 max: (value) => {
+                    return (pbcpInfoList[0]['maxEquity']+0.02).toFixed(4);
+                  },
+                min:function(value){
+                    if(pbcpInfoList[0]['minEqu']>=1){value.min=0.8}
+                    else if(pbcpInfoList[0]['minEqu']<=0.7) {value.min=0.3}
+                    else if(pbcpInfoList[0]['minEqu']<1) {value.min=0.5}
+                    else{value.min=0.0}
+                    return value.min
+                 },
+                type: 'value',
+                name:"当前净值",
+<!--                 minInterval: 0.01,-->
+<!--                 interval:0.05,-->
+                length:20,
+                axisLabel : { //调整左侧Y轴刻度， 直接按对应数据显示
+                    show:true,
+                    showMinLabel:true,
+                    showMaxLabel:true,
+                    formatter: function (value) {
+
+                        return value;
+                    }
+                }
+            },
+            {
+                max:((pbcpInfoList[0]['MaxBack'])+addNum).toFixed(0),
+                min:-0.3,
+                type: 'value',
+                name:"当前回撤(%)",
+                axisLabel : { //调整左侧Y轴刻度， 直接按对应数据显示
+                    show:true,
+                    showMinLabel:true,
+                    showMaxLabel:true,
+                    formatter:'{value}%'
+                    // formatter: function (value) {
+                    //     return value;
+                    // }
+                }
+            }
+        ],
+        series : [
+            {
+                name:'当前净值(左)',
+                type:'line',
+                showSymbol: false,//隐藏所有数据点
+                smooth: true,
+                yAxisIndex: 0, //属性，归属左侧y轴
+                tooltip:{
+                    trigger: 'axis'
+                },
+                data:pbcpInfoList[0]['equtiy'],
+            },
+            {
+                name:'当前回撤(右)',
+                type:'line',
+                showSymbol: false,//隐藏所有数据点
+                smooth: true,
+                yAxisIndex: 1, //属性，归属右侧y轴
+                tooltip:{
+                    trigger: 'axis'
+                },
+                      markPoint:{
+                         label: {
+                           show: true,
+                           position: "top",
+                            textStyle: {
+                            fontSize:18
+                            },
+                           distance:20,
+                           offset: [1, 1],
+                           formatter: '{b}: {c}%',
+                         },
+                         "textStyle": {
+                            "fontSize": 18 },
+                         symbol: "circle",
+                         symbolSize: 2,
+                         symbolOffset: [0, 0],
+                         data: [{type: 'max', name: '最大回撤'}],
+                        },
+                data:pbcpInfoList[0]['back'],
+            }
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表
+    myChart.setOption(option, true); // 重新渲染曲线图
+    window.onresize = myChart.resize; // 图表随浏览器拉伸自动变化
+}
+//图表END
+function dateTimeDifference(oneTime, twoTime, stype) {
+/**
+ *
+ * @param {any} oneTime 开始时间 yyyy-mm-dd hh24:min:sec
+ * @param {any} twoTime 结束时间 yyyy-mm-dd hh24:min:sec
+ * @param {any} stype   返回类型:
+                        1.SEC:相差秒数，
+                        2.MIN:相差分钟数，
+                        3.HH:相差小时数，
+                        4.HH:MIN:SEC:相差 “时：分：秒” 数，
+                        5.DD:相差天数，
+                        6.MM:相差月数，
+                        7.YY：相差年数。
+ */
+    if (oneTime == null || oneTime == "") return 0;
+    if (twoTime == null || twoTime == "") return 0;
+    var myoneTime = new Date(oneTime.replace(/\-/g, "/"));
+    var mytwoTime = new Date(twoTime.replace(/\-/g, "/"));
+    if (myoneTime == null || myoneTime == "") return 0;
+    if (mytwoTime == null || mytwoTime == "") return 0;
+    if (myoneTime > mytwoTime) return 0;
+
+    if (stype == "SEC") {
+        return (mytwoTime - myoneTime) / 1000;
+    } else if (stype == "MIN") {
+        return ((mytwoTime - myoneTime) / 1000) / 60;
+    } else if (stype == "HH") {
+        return (((mytwoTime - myoneTime) / 1000) / 60) / 60;
+    } else if (stype == "DD") {
+        return ((((mytwoTime - myoneTime) / 1000) / 60) / 60) / 24;
+    } else if (stype == "MM") {
+        return (((((mytwoTime - myoneTime) / 1000) / 60) / 60) / 24) / 31;
+    } else if (stype == "YY") {
+        return ((((((mytwoTime - myoneTime) / 1000) / 60) / 60) / 24) / 31) / 365;
+    } else if (stype == "HH:MIN:SEC") {
+        var seconds = (mytwoTime - myoneTime) / 1000;
+        if (seconds <= 60) {
+            return seconds + "sec";
+        } else if (60 < seconds <= 3600) {
+            return Math.floor(seconds / 60) + ":" + (seconds % 60) + "min";
+        } else if (3600 < seconds <= 216000) {
+            return Math.floor(seconds / 3600) + ":" + Math.floor((seconds % 3600) / 60) + ":" + ((seconds % 3600) % 60) + "h";
+        }
+    } else {
+        return mytwoTime - myoneTime;
+    }
+}
+
+<!--获取配邦交易账户-->
+function getAccount(){
+    $.ajax({
+       url: '/polls/getAccount/',
+       contentType: "application/json;charset=utf-8",
+       type: 'GET',
+       json: 'callback',
+       async: false,
+       success: function (json) {
+          var select = $("#navCpAccount");
+          $("#navCpAccount").empty();
+          select.append("<option value='-1'>请选择</option>");
+          for (var i = 0; i < json.length; i++) {
+              select.append("<option value='" + json[i]['证券账号'] + "'>"
+                   +json[i]['证券名称'] +json[i]['证券账号'] +"</option>");
+          }
+       },
+       error: function(e){
+         console.log("error");
+       }
+    })
+}
+<!--获取配邦期货交易账户-->
+function getQhAccount(){
+    $.ajax({
+       url: '/polls/getQhAccount/',
+       contentType: "application/json;charset=utf-8",
+       type: 'GET',
+       json: 'callback',
+       async: false,
+       success: function (json) {
+       console.log(json)
+          var select = $("#account");
+          $("#account").empty();
+          select.append("<option value='-1'>请选择</option>");
+          for (var i = 0; i < json.length; i++) {
+              select.append("<option value='" + json[i]['证券账号'] + "'>"
+                   +json[i]['证券名称'] +json[i]['证券账号'] +"</option>");
+          }
+       },
+       error: function(e){
+         console.log("error");
+       }
+    })
+}
+<!--配邦账户-->
+$('.addPbcp').click(function(){
+        $('#myLabelPbcp').html('新增产品')
+        pbcpType = 'add';
+        $('#cpId').val('');
+        $('#cpName').val('');
+        $('#cpRemarks').val('');
+    })
+$('.addAccount').click(function(){
+        $('#myLabel').html('新增账户')
+        $('#myLabelPbcp').html('新增产品')
+        accountType = 'add';
+        $('#underId').val('1');
+        $('#underType').val('0');
+        $('#bondName').val('');
+        $('#bondAccount').val('');
+        $('#bondPwd').val('');
+        $('#remarks').val('');
+    })
+//新增 or  修改 账户
+function addUpdataAccount(type){
+        console.log(type);
+        if(type=='add'){
+            var url = '/polls/addAccount/'
+            accountOption(url);
+        }
+        if(type=='update'){
+            var url = '/polls/updateAccount/'
+            id = accountId;
+            accountOption(url,id);
+        }
+    }
+function accountOption(url,id){
+        var underId = $('#underId').val();
+        var underType = $('#underType').val();
+        var bondName = $('#bondName').val();
+        var bondAccount = $('#bondAccount').val();
+        var bondPwd = $('#bondPwd').val();
+        var remarks = $('#remarks').val();
+        data = {'id':id,'underId':underId,'underType':underType,
+            'bondName':bondName,'bondAccount':bondAccount,'bondPwd':bondPwd,'remarks':remarks}
+        //上传数据到后台
+        console.log(data);
+        $.ajax({
+            url:url,
+            dataType:'json',
+            type:'POST',
+            data:data,
+            success:function(data){
+                $('#addAccount').modal('hide');
+                accountType='add';
+                if(data.type){
+                    alertSuccess(data.message);
+                }else{
+                    alertError(data.message);
+                }
+            },
+            error:function(e){
+                console.log(e)
+            }
+        })
+    }
+// 新增 or  修改 产品
+ function addUpdataPbcp(type){
+        console.log(type);
+        if(type=='add'){
+            var url = '/polls/addPbcp/'
+            pbcpOption(url);
+        }
+        if(type=='update'){
+            var url = '/polls/updatePbcp/'
+            id = pbcpId;
+            pbcpOption(url,id);
+        }
+    }
+function pbcpOption(url,id){
+        var cpId = $('#cpId').val();
+        var cpName = $('#cpName').val();
+        var cpRemarks = $('#cpRemarks').val();
+        data = {'id':id,'cpId':cpId,'cpName':cpName,'cpRemarks':cpRemarks}
+        //上传数据到后台
+        console.log(data);
+        $.ajax({
+            url:url,
+            dataType:'json',
+            type:'POST',
+            data:data,
+            success:function(data){
+                $('#addPbcp').modal('hide');
+                if(data.type){
+                    alertSuccess(data.message);
+                }else{
+                    alertError(data.message);
+                }
+            },
+            error:function(e){
+                console.log(e)
+            }
+        })
+    }
+//删除配邦产品
+function delData(delType,delId,underId){
+        var url=''
+        var data=''
+        if(delType == 'account'){
+            data={'id':delId}
+            url = '/polls/deleteAccount/'
+        }
+        if(delType == 'pbcp'){
+            data={'id':delId,'underId':underId}
+            url = '/polls/deletePbcp/'
+        }
+        $.ajax({
+            url:url,
+            dataType:'json',
+            type:'POST',
+            data:data,
+            success:function(data){
+                $('#delModel').modal('hide');
+                console.log(data);
+                if(data.type){
+                    alertSuccess(data.message);
+                }else{
+                    alertError(data.message);
+                }
+            },
+            error:function(e){
+                console.log(e)
+                window.parent.alertError(e.error);
+            }
+        })
+    }
+// 当前日期
+function show(){
+        var mydate = new Date();
+        var str = "" + mydate.getFullYear() + "-";
+        if(mydate.getMonth()<9){
+            str += "0"+(mydate.getMonth()+1) + "-";
+        }else{
+          str += (mydate.getMonth()+1) + "-";
+        }
+        if(mydate.getDate()<10){
+           str += "0"+mydate.getDate();
+        }else{
+           str += mydate.getDate();
+        }
+        return str;
+    }
+//新增产品
+    $('.addDataEquCp').click(function(e){
+        var navCpAccount = $('#navCpAccount').val();
+        var navCpName = $('#navCpName').val();
+        var data = {'navCpName':navCpName,'navCpAccount':navCpAccount}
+        $.ajax({
+            url:'/polls/addEquCp/',
+            dataType:'json',
+            type:'POST',
+            data:data,
+            success:function(data){
+                $('#addEquPbModal').modal('hide');
+                if(data.type){
+                   alertSuccess(data.message)
+                }else{
+                    alertError(data.message)
+                }
+            },
+            error:function(e){
+                 console.log('error')
+            }
+        })
+    })
+    $('.addDataEqu').click(function(e){
+       // var type = $('#type').val();
+        var endTime = $('#endTime').val();
+        var startTime = $('#startTime').val();
+        var startBlance = $('#startBlance').val();
+        var qhBlance = $('#qhBlance').val();
+        var gpBlance = $('#gpBlance').val();
+        var manage = $('#manage').val();
+        var bonus = $('#bonus').val();
+        var withdrawal = $('#withdrawal').val();
+        var gpMarket = $('#gpMarket').val();
+        var qhMarket = $('#qhMarket').val();
+        var tableName = $('#tableName').html();
+        var data={'tableName':tableName,'endTime':endTime,'startTime':startTime,'startBlance':startBlance,'qhBlance':qhBlance,
+            'gpBlance':gpBlance,'manage':manage,'bonus':bonus,'withdrawal':withdrawal,'gpMarket':gpMarket,'qhMarket':qhMarket
+        }
+        //上传数据到后台
+        $.ajax({
+            url:'/polls/addEqu/',
+            dataType:'json',
+            type:'POST',
+            data:data,
+            success:function(data){
+                console.log(data)
+                $('#addModal').modal('hide');
+                if(data.type){
+                    alertSuccess(data.message);
+                }else{
+                    alertError(data.message);
+                }
+            },
+            error:function(e){
+                console.log(e)
+            }
+        })
+    })
+    function addFunctionAlty(value, row, index) {
+            return [
+                '<button id="update" type="button" class="btn btn-w3r update">修改</button>',
+                '<button id="delete" type="button" class="btn btn-w3r delete" style="margin-right:10px">删除</button>',
+            ].join('');
+        }
+        //账户的按钮操作事件
+    window.operateEvents = {
+            'click #update': function (e, value, row, index) {
+                $("#addAccount").modal('show');
+                accountType = 'update';
+                $('#myLabel').html('修改账户')
+                if (row['所属端'] == '股票端') row['所属端'] = 0
+                if (row['所属端'] == '期货端') row['所属端'] = 1
+                accountId = row['id'].replace(/\"/g, "");
+                $('#underId').val(row['所属产品']);
+                $('#underType').val(row['所属端']);
+                $('#bondName').val(row['证券名称']);
+                $('#bondAccount').val(row['证券账号']);
+                $('#bondPwd').val(row['证券密码']);
+                $('#remarks').val(row['备注']);
+
+            },
+            'click #delete': function (e, value, row, index) {
+                $("#delModel").modal('show');
+                delType = 'account';
+                delId = row['id'].replace(/\"/g, "");
+                ;
+            }
+        };
+    function addFunctionAltyPbcp(value, row, index) {
+            return [
+                '<button id="updatePbcp" type="button" class="btn btn-w3r update">修改</button>',
+                '<button id="delPbcp" type="button" class="btn btn-w3r delete" style="margin-right:10px">删除</button>',
+            ].join('');
+        }
+<!--    产品的按钮操作事件-->
+    window.operateEventsPbcp = {
+            'click #updatePbcp': function (e, value, row, index) {
+                $("#addPbcp").modal('show');
+                pbcpType = 'update';
+                $('#myLabelPbcp').html('修改产品')
+                pbcpId = row['id'].replace(/\"/g, "");
+                $('#cpId').val(row['产品ID']);
+                $('#cpName').val(row['产品名称']);
+                $('#cpRemarks').val(row['备注']);
+                $('#cpId').attr("disabled", "disabled");
+            },
+            'click #delPbcp': function (e, value, row, index) {
+                $("#delModel").modal('show');
+                delType = 'pbcp';
+                delId = row['id'].replace(/\"/g, "");
+                ;
+                underId = row['产品ID']
+            }
+        };
+    var oInit = new Object();
+    var columnsArray = [];
+    var columnsArrayAccount = [];
+    <!--获取配邦产品列表-->
+    function getPbcp(){
+        $.ajax({
+            url: '/polls/getPbcp/',
+            contentType: "application/json;charset=utf-8",
+            type: 'GET',
+            json: 'callback',
+            async: false,
+            success: function (json) {
+                columnsArray = [];
+                var select = $("#underId");
+                for (var i = 0; i < json.length; i++) {
+                    select.append("<option value='" + json[i]['产品ID'] + "'>"
+                        + json[i]['产品名称'] + "</option>");
+                }
+                for (var i = 0; i < (Object.keys(json[0])).length; i++) {//Object.keys(obj) 获取key名称
+                    var property = (Object.keys(json[0]))[i];//id   username
+
+                    columnsArray.push({
+                        "title": property,
+                        "field": property,
+                        switchable: true,
+                        sortable: true
+                    });
+                }
+                columnsArray.push({
+                    field: 'operate',
+                    title: '操作',
+                    events: operateEventsPbcp,//给按钮注册事件
+                    formatter: addFunctionAltyPbcp//表格中增加按钮
+                })
+                if (json[0].id == undefined) {
+                    json = []
+                }
+                $('#table').bootstrapTable('destroy').bootstrapTable({
+                    data: json,
+                    sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                    detailView: true,//父子表
+                    pageSize: 15,
+                    pageNumber: 1,
+                    pageList: "[10, 25, 50, 100, All]",
+                    pagination: true, //是否分页
+                    columns: columnsArray,
+                    //注册加载子表的事件。注意下这里的三个参数！
+                    onExpandRow: function (index, row, $detail) {
+                        oInit.InitSubTable(index, row, $detail);
+                    }
+                });
+                $('.fixed-table-loading').hide();
+                if (json[0].id != undefined) {
+                    $('#table').bootstrapTable('hideColumn', 'id'); //隐藏字段
+                }
+            },
+            error: function () {
+                console.log('error')
+                $('.fixed-table-loading').show()
+            }
+        })
+    }
+    function  getAccountTable(){
+        //获取配邦账号列表
+        $.ajax({
+            url: '/polls/getAccount/',
+            contentType: "application/json;charset=utf-8",
+            type: 'GET',
+            json: 'callback',
+            async: false,
+            success: function (json) {
+                columnsArrayAccount = [];
+                for (var i = 0; i < (Object.keys(json[0])).length; i++) {//Object.keys(obj) 获取key名称
+                    var property = (Object.keys(json[0]))[i];//id   username
+                    columnsArrayAccount.push({
+                        "title": property,
+                        "field": property,
+                        switchable: true,
+                        sortable: true
+                    });
+                }
+                columnsArrayAccount.push({
+                    field: 'operate',
+                    title: '操作',
+                    events: operateEvents,//给按钮注册事件
+                    formatter: addFunctionAlty//表格中增加按钮
+                })
+
+            },
+            error: function () {
+                console.log('error')
+                $('.fixed-table-loading').show()
+            }
+        })
+    }
+    function getAccountId(underId) {
+            data = {'underId': underId}
+            console.log(data)
+            $.ajax({
+                url: '/polls/getAccountId/',
+                dataType: 'json',
+                type: 'POST',
+                data: data,
+                async: false,
+                success: function (json) {
+                    if (json[0]['id'] != undefined) {
+                        for (var i = 0; i < json.length; i++) {
+                            if (json[i]['所属端'] == 0) json[i]['所属端'] = '股票端'
+                            if (json[i]['所属端'] == 1) json[i]['所属端'] = '期货端'
+                        }
+                    } else {
+                        json = []
+                    }
+
+                    account = json;
+                },
+                error: function () {
+                    account = [];
+                    console.log('error')
+                }
+            })
+            return account
+        }
+    //初始化子表格(无线循环)
+    oInit.InitSubTable = function (index, row, $detail) {
+            var underId = row['产品ID'];
+            getAccountId(underId);
+            var cur_table = $detail.html('<table></table>').find('table');
+            $(cur_table).bootstrapTable({
+                <!--            url: '/polls/getAccount/',-->
+                <!--            method: 'get',-->
+                data: account,
+                queryParams: {strParentID: underId},
+                ajaxOptions: {strParentID: underId},
+                clickToSelect: true,
+                uniqueId: "id",
+                pageSize: 10,
+                pageList: [10, 25],
+                columns: columnsArrayAccount,
+                //无线循环取子表，直到子表里面没有记录
+                onExpandRow: function (index, row, $Subdetail) {
+                    oInit.InitSubTable(index, row, $Subdetail);
+                },
+                onLoadError: function(){  //加载失败时执行
+                    layer.msg("加载数据出错!", {time : 1500, icon : 5});
+                }
+            });
+            $('.fixed-table-loading').hide();
+            $(cur_table).bootstrapTable('hideColumn', 'id'); //隐藏字段
+            $(cur_table).bootstrapTable('hideColumn', '所属产品'); //隐藏字段
+        };
+    var menuClick = function (menuUrl, params, id) {
+            $('#tableName').html(params);
+            menuUrl = menuUrl + "?name=" + params;
+            var id = $("#" + id)
+            $(id).attr('src', menuUrl);
+        }
+    var navMenu = function (params) {
+            var a = $("#" + params);
+            $(a).show().siblings().hide();
+            if(params=='pbAccount'){
+                getPbcp();
+                getAccountTable()
+            }
+            if(params=='pbWord'){
+                getQhAccount();
+                monenyTable();
+                //默认天数
+                $('#divDateId input').val(moment().subtract('days', 210).format('YYYY-MM-DD') + ' - ' + moment().format('YYYY-MM-DD'));
+                $('#divDateId input').val(moment().subtract('days', 365).format('YYYY-MM-DD') + ' - ' + moment().format('YYYY-MM-DD'));
+                //格式化日期显示框
+                $('#divDateId').daterangepicker({
+                    minDate: '01/01/2015',	//最小时间
+                    maxDate : moment(), //最大时间
+                    dateLimit : {
+                        days : 365*5
+                    }, //起止时间的最大间隔
+                    showDropdowns : true,
+                    showWeekNumbers : false, //是否显示第几周
+                    timePicker : false, //是否显示小时和分钟
+                    timePickerIncrement : 60, //时间的增量，单位为分钟
+                    timePicker12Hour : false, //是否使用12小时制来显示时间
+                    ranges : {
+                        //'最近1小时': [moment().subtract('hours',1), moment()],
+                        //'今日': [moment().startOf('day'), moment()],
+                        //'昨日': [moment().subtract('days', 1).startOf('day'), moment().subtract('days', 1).endOf('day')],
+                        //'最近7日': [moment().subtract('days', 6), moment()],
+                        '最近7月': [moment().subtract('days', 210), moment()],
+                        '最近一年': [moment().subtract('days', 365), moment()]
+                    },
+                    opens : 'right', //日期选择框的弹出位置
+                    buttonClasses : [ 'btn btn-default' ],
+                    applyClass : 'btn-small btn-primary blue',
+                    cancelClass : 'btn-small',
+                    format : 'YYYY-MM-DD', //控件中from和to 显示的日期格式
+                    separator : ' to ',
+                    locale : {
+                        applyLabel : '确定',
+                        cancelLabel : '取消',
+                        fromLabel : '起始时间',
+                        toLabel : '结束时间',
+                        customRangeLabel : '自定义',
+                        daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+                        monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+                            '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+                        firstDay : 1
+                    }	//汉化日期控件
+                }, function(start, end, label) {
+                    $('#searchDate').val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+                });
+            }
+        }
+    // 自定义按钮导出数据
+    function exportData() {
+           $.ajax({
+            url:'/polls/exPbAccountData/',
+            type:'get',
+            data:{},
+            success:function(data){
+                var $a = $('<a></a>');
+                $a.attr("href","http://192.168.0.157:8080/polls/exPbAccountData");  //红色的是你下载路径
+                $("body").append($a);
+                $a[0].click();
+                $a.remove();
+            },
+            error:function(e){
+                console.log("error");
+            }
+           })
+        }
+<!--       导出资金表-->
+    function exportZJData(account,startTime,endTime){
+           if(account!=-1){
+               $.ajax({
+                url:'/polls/exportZJData/',
+                type:'POST',
+                data:{},
+                success:function(data){
+                    var $a = $('<a></a>');
+                    $a.attr("href",'http://192.168.0.157:8080/polls/exportZJData?account='+account+'&startTime='+startTime+'&endTime='+endTime);  //红色的是你下载路径
+                    $("body").append($a);
+                    $a[0].click();
+                    $a.remove();
+                    alertSuccess('导出成功');
+                },
+                error:function(e){
+                    console.log("error");
+                }
+               })
+           }else{
+                alertError('请选择账号');
+           }
+        }
+<!--       导出资金表-->
+    function exportDealData(account,startTime,endTime){
+           if(account!=-1){
+               $.ajax({
+                url:'/polls/exportDealData/',
+                type:'POST',
+                data:{},
+                success:function(data){
+                    var $a = $('<a></a>');
+                    $a.attr("href",'http://192.168.0.157:8080/polls/exportDealData?account='+account+'&startTime='+startTime+'&endTime='+endTime);  //红色的是你下载路径
+                    $("body").append($a);
+                    $a[0].click();
+                    $a.remove();
+                    alertSuccess('导出成功');
+                },
+                error:function(e){
+                    console.log("error");
+                }
+               })
+           }else{
+                alertError('请选择账号');
+           }
+        }
+    $('.exportData').click(function (e) {
+<!--            $('#iframePbTable').contents().prevObject[0].contentWindow.exportData();-->
+            var tableName = $('#tableName').html();
+            var url = '/polls/exPbcpData/?name='+tableName
+            //上传数据到后台-->
+            $.ajax({
+                url:url,
+                type:'get',
+                success:function(data){
+                   var $a = $('<a></a>');
+                   var url ='http://192.168.0.157:8080/polls/exPbcpData/?name='+tableName
+                   $a.attr("href",url);  //红色的是你下载路径
+                   $("body").append($a);
+                   $a[0].click();
+                   $a.remove();
+                },
+                error:function(e){
+                   console.log(e)
+                }
+            })
+        })
+
+  // 左边导航点击
+  //动态添加标题后的标签事件
+   $("#leftMenu").on("click", "a", function(){
+      $('#leftMenu> a').removeClass('active');
+      $(this).addClass('active');
+    });
+   $("#menulist").on("click", "a", function(){
+      $('#menulist> a').removeClass('active');
+      $(this).addClass('active');
+    });
+
+    $('.navUl>li>a').click(function (e) {
+        $('.navUl>li').removeClass('active');
+        $(this).parent().addClass('active');
+    });
+    $('#wordNav> a').click(function (e) {
+        $('#wordNav> a').removeClass('active');
+        $(this).addClass('active');
+    });
+</script>
+</html>

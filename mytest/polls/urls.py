@@ -1,0 +1,33 @@
+from django.contrib import admin
+from django.urls import path
+from .import views
+urlpatterns = [
+    path('create/', views.creat_table),
+    path('register/', views.register),
+    path('login/', views.login),
+    path('forgetPwd/', views.forgetPwd),
+    path('getData/', views.getDataList),
+    path('getEqu/', views.getEquData),
+    path('addEqu/', views.addEqu),
+    path('addEquCp/', views.addEquCp),
+    path('deleteEqu/', views.deleteEqu),
+    path('getAccount/', views.getAccount),
+    path('getAccountId/', views.getAccountId),
+    path('getPbcp/', views.getPbcp),
+    path('addAccount/', views.addAccount),
+    path('addPbcp/', views.addPbcp),
+    path('updateAccount/', views.updateAccount),
+    path('updatePbcp/', views.updatePbcp),
+    path('deleteAccount/', views.deleteAccount),
+    path('deletePbcp/', views.deletePbcp),
+    path('exPbAccountData/', views.exPbAccountData),
+    path('exPbcpData/', views.exPbcpData),
+    path('getQhfx/', views.getQhfx),
+    path('getDealRecord/', views.getDealRecord),
+    path('refershDeal/', views.refershDeal),
+    path('getQhAccount/', views.getQhAccount),
+    path('refershMoney/', views.refershMoney),
+    path('exportZJData/', views.exportZJData),
+    path('getEquCp/', views.getEquCp),
+    path('exportDealData/', views.exportDealData),
+]
